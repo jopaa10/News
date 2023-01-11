@@ -23,5 +23,5 @@ export const GetStories = () => {
   useEffect(() => {
     if (state.hits === [] && state.isLoading) return;
     fetchStories();
-  }, []);
+  }, [state.query, state.page]);
 };

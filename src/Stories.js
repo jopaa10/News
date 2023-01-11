@@ -1,13 +1,18 @@
 import React from "react";
 
 import { useGlobalContext } from "./context";
+import { REMOVE_STORY } from "./context/actions";
 import { GetStories } from "./utils/fetch";
 
 const Stories = () => {
-  const { state } = useGlobalContext();
+  const { state, dispatch } = useGlobalContext();
   GetStories();
 
-  console.log(state.isLoading, state.hits);
+  const removeStory = (id) => {
+    console.log(id);
+    dispatch({ type: REMOVE_STORY, payload: id });
+  };
+
   if (state.isLoading) {
     return <div className="loading"></div>;
   }
@@ -31,7 +36,12 @@ const Stories = () => {
               >
                 read more
               </a>
-              <button className="remove-btn">remove</button>
+              <button
+                className="remove-btn"
+                onClick={() => removeStory(objectID)}
+              >
+                remove
+              </button>
             </div>
           </article>
         );
